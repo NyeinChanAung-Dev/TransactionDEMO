@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TransactionDEMO.Api.Models;
 using TransactionDEMO.Api.Utils;
 using TransactionDEMO.Domain.Models;
 using TransactionDEMO.Infrastructure;
@@ -34,10 +35,17 @@ namespace TransactionDEMO.Api.Manager
             return response;
         }
 
-        public async Task<PagedListModel<Transaction>> GetAllTransactions(int page = 1, int pageSize = 10)
+        public async Task<PagedListModel<ResponseTransaction>> GetAllTransactions(int page = 1, int pageSize = 10)
         {
-            var finalResult = new PagedListModel<Transaction>();
-            List<Transaction> response = await _transactionRepo.GetAll().ToListAsync();
+            var finalResult = new PagedListModel<ResponseTransaction>();
+            List<ResponseTransaction> response = await (from tranOrg in _transactionRepo.GetAll()
+                                                        select new ResponseTransaction()
+                                                        {
+                                                            Id = tranOrg.TransactionId,
+                                                            Payment = tranOrg.Amount.ToString() + " " + tranOrg.CurrencyCode ,
+                                                            Status = tranOrg.Status
+                                                        }).ToListAsync();
+
             if (response.Count() != 0)
             {
                 #region paging
@@ -46,7 +54,7 @@ namespace TransactionDEMO.Api.Manager
                 var results = response.Skip(pageSize * (page - 1))
                                      .Take(pageSize);
 
-                PagedListModel<Transaction> model = new PagedListModel<Transaction>()
+                PagedListModel<ResponseTransaction> model = new PagedListModel<ResponseTransaction>()
                 {
                     TotalCount = totalCount,
                     TotalPages = totalPages,
@@ -68,21 +76,42 @@ namespace TransactionDEMO.Api.Manager
             return finalResult;
         }
 
-        public async Task<List<Transaction>> GetTransactionsByCurrency(string currencyCode)
+        public async Task<List<ResponseTransaction>> GetTransactionsByCurrency(string currencyCode)
         {
-            List<Transaction> response = await _transactionRepo.GetAll().Where(t => t.CurrencyCode == currencyCode).ToListAsync();
+            List<ResponseTransaction> response = await (from tranOrg in _transactionRepo.GetAll()
+                                                        where tranOrg.CurrencyCode == currencyCode
+                                                        select new ResponseTransaction()
+                                                        {
+                                                            Id = tranOrg.TransactionId,
+                                                            Payment = tranOrg.Amount.ToString() + " " + tranOrg.CurrencyCode,
+                                                            Status = tranOrg.Status
+                                                        }).ToListAsync();
             return response;
         }
 
-        public async Task<List<Transaction>> GetTransactionsByDate(DateTime startDate, DateTime endDate)
+        public async Task<List<ResponseTransaction>> GetTransactionsByDate(DateTime startDate, DateTime endDate)
         {
-            List<Transaction> response = await _transactionRepo.GetAll().Where(t => t.TransactionDate >= startDate && t.TransactionDate <= endDate).ToListAsync();
+            List<ResponseTransaction> response = await (from tranOrg in _transactionRepo.GetAll()
+                                                        where tranOrg.TransactionDate >= startDate && tranOrg.TransactionDate <= endDate
+                                                        select new ResponseTransaction()
+                                                        {
+                                                            Id = tranOrg.TransactionId,
+                                                            Payment = tranOrg.Amount.ToString() + " " + tranOrg.CurrencyCode,
+                                                            Status = tranOrg.Status
+                                                        }).ToListAsync();
             return response;
         }
 
-        public async Task<List<Transaction>> GetTransactionsByStatus(string status)
+        public async Task<List<ResponseTransaction>> GetTransactionsByStatus(string status)
         {
-            List<Transaction> response = await _transactionRepo.GetAll().Where(t => t.Status == status).ToListAsync();
+            List<ResponseTransaction> response = await (from tranOrg in _transactionRepo.GetAll()
+                                                        where tranOrg.Status == status
+                                                        select new ResponseTransaction()
+                                                        {
+                                                            Id = tranOrg.TransactionId,
+                                                            Payment = tranOrg.Amount.ToString() + " " + tranOrg.CurrencyCode,
+                                                            Status = tranOrg.Status
+                                                        }).ToListAsync();
             return response;
         }
 

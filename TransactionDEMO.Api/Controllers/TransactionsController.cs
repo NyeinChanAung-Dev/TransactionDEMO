@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TransactionDEMO.Api.Manager;
+using TransactionDEMO.Api.Models;
 using TransactionDEMO.Api.Utils;
 using TransactionDEMO.Domain.Models;
 
@@ -53,7 +54,7 @@ namespace TransactionDEMO.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetAllTransactions(int page = 1, int pageSize = 10)
         {
-            PagedListModel<Transaction> response = await _transactionMgr.GetAllTransactions(page, pageSize);
+            PagedListModel<ResponseTransaction> response = await _transactionMgr.GetAllTransactions(page, pageSize);
             if (response.Results != null)
             {
                 return Ok(response);
@@ -68,7 +69,7 @@ namespace TransactionDEMO.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetTransactionsByCurrency(string currencyCode)
         {
-            List<Transaction> response = await _transactionMgr.GetTransactionsByCurrency(currencyCode);
+            List<ResponseTransaction> response = await _transactionMgr.GetTransactionsByCurrency(currencyCode);
             if (response.Count() > 0)
             {
                 return Ok(response);
@@ -83,7 +84,7 @@ namespace TransactionDEMO.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetTransactionsByDate(DateTime startDate, DateTime endDate)
         {
-            List<Transaction> response = await _transactionMgr.GetTransactionsByDate(startDate, endDate);
+            List<ResponseTransaction> response = await _transactionMgr.GetTransactionsByDate(startDate, endDate);
             if (response != null)
             {
                 return Ok(response);
@@ -98,7 +99,7 @@ namespace TransactionDEMO.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetTransactionsByStatus(string status)
         {
-            List<Transaction> response = await _transactionMgr.GetTransactionsByStatus(status);
+            List<ResponseTransaction> response = await _transactionMgr.GetTransactionsByStatus(status);
             if (response != null)
             {
                 return Ok(response);
