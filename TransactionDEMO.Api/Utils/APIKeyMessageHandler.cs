@@ -10,7 +10,7 @@ namespace TransactionDEMO.Api.Utils
     public class APIKeyMessageHandler
     {
         private readonly RequestDelegate _next;
-        public const string APIKeyToCheck = "B93979A51C8C46712DD2C8271587B262";
+        public const string APIKeyToCheck = "G93979A51C8C46712DD2C8271587B262";
         public APIKeyMessageHandler(RequestDelegate next)
         {
             _next = next;
