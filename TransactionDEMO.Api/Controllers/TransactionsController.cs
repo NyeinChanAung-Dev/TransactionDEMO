@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TransactionDEMO.Api.Manager;
+using TransactionDEMO.Api.Utils;
 using TransactionDEMO.Domain.Models;
 
 namespace TransactionDEMO.Api.Controllers
@@ -39,6 +40,21 @@ namespace TransactionDEMO.Api.Controllers
         {
             IEnumerable<Transaction> response = await _transactionMgr.InsertTransactions(transactions);
             if (response != null)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpGet("alltransactions")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetAllTransactions(int page = 1, int pageSize = 10)
+        {
+            PagedListModel<Transaction> response = await _transactionMgr.GetAllTransactions(page, pageSize);
+            if (response.Results != null)
             {
                 return Ok(response);
             }
