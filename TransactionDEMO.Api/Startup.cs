@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TransactionDEMO.Api.Utils;
 
 namespace TransactionDEMO.Api
 {
@@ -26,8 +27,13 @@ namespace TransactionDEMO.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers()
+                 .AddJsonOptions(options => options.JsonSerializerOptions.IgnoreNullValues = true);
+            services.AddRouting(options => options.LowercaseUrls = true);
 
-            services.AddControllers();
+            services.AddHttpClient()
+                .AddHttpContextAccessor();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TransactionDEMO.Api", Version = "v1" });
@@ -43,6 +49,8 @@ namespace TransactionDEMO.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TransactionDEMO.Api v1"));
             }
+
+            app.ApplyAPIKeyValidation();
 
             app.UseHttpsRedirection();
 
