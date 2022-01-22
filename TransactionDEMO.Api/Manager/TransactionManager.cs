@@ -29,9 +29,9 @@ namespace TransactionDEMO.Api.Manager
             return response;
         }
 
-        public async Task<IEnumerable<Transaction>> InsertTransactions(IEnumerable<Transaction> transactions)
+        public async Task<List<Transaction>> InsertTransactions(List<Transaction> transactions)
         {
-            IEnumerable<Transaction> response = await _transactionRepo.InsertManyTransaction(transactions);
+            List<Transaction> response = await _transactionRepo.InsertManyTransaction(transactions);
             return response;
         }
 

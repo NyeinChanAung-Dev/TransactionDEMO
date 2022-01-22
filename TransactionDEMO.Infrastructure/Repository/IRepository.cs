@@ -9,7 +9,7 @@ namespace TransactionDEMO.Infrastructure.Repository
     public interface IRepository<T>
     {
         Task<T> InsertTransaction(T entity);
-        Task<IEnumerable<T>> InsertManyTransaction(IEnumerable<T> entities);
+        Task<List<T>> InsertManyTransaction(List<T> entities);
         IQueryable<T> GetAll();
     }
 }

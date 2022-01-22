@@ -30,7 +30,7 @@ namespace TransactionDEMO.Infrastructure.Repository
             }
         }
 
-        public async Task<IEnumerable<T>> InsertManyTransaction(IEnumerable<T> entities)
+        public async Task<List<T>> InsertManyTransaction(List<T> entities)
         {
             await _dbContext.Set<T>().AddRangeAsync(entities);
             var result = await _dbContext.SaveChangesAsync();

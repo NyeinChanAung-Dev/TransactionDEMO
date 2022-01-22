@@ -37,9 +37,9 @@ namespace TransactionDEMO.Api.Controllers
         }
 
         [HttpPost("transactions")]
-        public async Task<IActionResult> InsertTransactions(IEnumerable<Transaction> transactions)
+        public async Task<IActionResult> InsertTransactions(List<Transaction> transactions)
         {
-            IEnumerable<Transaction> response = await _transactionMgr.InsertTransactions(transactions);
+            List<Transaction> response = await _transactionMgr.InsertTransactions(transactions);
             if (response != null)
             {
                 return Ok(response);
