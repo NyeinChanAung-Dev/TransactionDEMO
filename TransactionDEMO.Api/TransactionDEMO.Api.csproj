@@ -13,4 +13,8 @@
     <ProjectReference Include="..\TransactionDEMO.Infrastructure\TransactionDEMO.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Db_run_script\" />
+  </ItemGroup>
+
 </Project>

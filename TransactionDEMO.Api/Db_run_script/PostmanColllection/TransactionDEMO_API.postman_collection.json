@@ -1,0 +1,139 @@
+{
+	"info": {
+		"_postman_id": "b6e5aa5d-b554-4ec8-b08d-51cd7ecbf398",
+		"name": "TransactionDEMO_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Transactions By Currency",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "G93979A51C8C46712DD2C8271587B262",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "APIKey",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44387/api/transactions/currency?currencyCode=USD",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44387",
+					"path": [
+						"api",
+						"transactions",
+						"currency"
+					],
+					"query": [
+						{
+							"key": "currencyCode",
+							"value": "USD"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Transactions By Date",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "G93979A51C8C46712DD2C8271587B262",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "APIKey",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44387/api/transactions/date?startDate=2022-01-21 02:13:00.0000000&endDate=2022-01-22 09:22:00.0000000",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44387",
+					"path": [
+						"api",
+						"transactions",
+						"date"
+					],
+					"query": [
+						{
+							"key": "startDate",
+							"value": "2022-01-21 02:13:00.0000000"
+						},
+						{
+							"key": "endDate",
+							"value": "2022-01-22 09:22:00.0000000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Transactions By Status",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "G93979A51C8C46712DD2C8271587B262",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "APIKey",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44387/api/transactions/status?status=R",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44387",
+					"path": [
+						"api",
+						"transactions",
+						"status"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "R"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
